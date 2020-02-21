@@ -1,2 +1,24 @@
 ---
-# tasks file for ansible_role_freebsd-temperature
+
+- block:
+    - name: get CPU model
+      command: sysctl hw.model
+      changed_when: false
+      register: t_cpu_model
+
+    - block:
+        - include: kernel_module.yml module_name=amdtemp module_status=disable
+
+        - include: kernel_module.yml module_name=coretemp module_status=enable
+
+      when: t_cpu_model.stdout is search("Intel")
+
+    - block:
+        - include: kernel_module.yml module_name=amdtemp module_status=enable
+
+        - include: kernel_module.yml module_name=coretemp module_status=disable
+
+      when: t_cpu_model.stdout is search("AMD")
+
+  when: ansible_system == 'FreeBSD'
+

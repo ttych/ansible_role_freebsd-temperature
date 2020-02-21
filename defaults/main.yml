@@ -1,2 +1,3 @@
 ---
-# defaults file for ansible_role_freebsd-temperature
+
+freebsd_boot_loader_conf: /boot/loader.conf

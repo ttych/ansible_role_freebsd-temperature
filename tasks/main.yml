@@ -21,4 +21,3 @@
       when: t_cpu_model.stdout is search("AMD")
 
   when: ansible_system == 'FreeBSD'
-

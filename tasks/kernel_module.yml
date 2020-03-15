@@ -1,7 +1,7 @@
 ---
 
 - name: "check {{ module_name }} module status"
-  command: "kldstat -m {{ module_name }}"
+  command: "kldstat -n {{ module_name }}.ko"
   failed_when: false
   changed_when: false
   register: t_freebsd_kernel_module_status
